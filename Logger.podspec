@@ -13,6 +13,6 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/hamed8080/additive.git", :tag => s.version }
   s.source_files = "Sources/Additive/**/*.{h,swift,xcdatamodeld,m,momd}"
   s.resources = "Sources/Additive/Resources/*.xcdatamodeld"
-  s.frameworks  = "Foundation"
+  s.frameworks  = "Foundation" , "CoreData"
 
 end

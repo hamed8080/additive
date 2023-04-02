@@ -6,7 +6,7 @@
 
 import Foundation
 
-internal enum HTTPMethod: String {
+public enum HTTPMethod: String {
     case options = "OPTIONS"
     case get = "GET"
     case head = "HEAD"
@@ -19,7 +19,7 @@ internal enum HTTPMethod: String {
 }
 
 
-extension URLRequest {
+public extension URLRequest {
     var method: HTTPMethod {
         get {
             return HTTPMethod(rawValue: httpMethod ?? "GET") ?? .get

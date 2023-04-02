@@ -6,14 +6,14 @@
 
 import Foundation
 
-struct Voidcodable: Codable {}
+public struct Voidcodable: Codable {}
 
-extension JSONDecoder {
-    public static let instance = JSONDecoder()
+public extension JSONDecoder {
+    static let instance = JSONDecoder()
 }
 
-extension JSONEncoder {
-    public static let instance = JSONEncoder()
+public extension JSONEncoder {
+    static let instance = JSONEncoder()
 }
 
 public extension Encodable {

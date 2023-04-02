@@ -8,7 +8,7 @@ import CommonCrypto
 import CryptoKit
 import Foundation
 
-extension String {
+public extension String {
     var md5: String? {
         if #available(iOS 13.0, *) {
             let digest = Insecure.MD5.hash(data: self.data(using: .utf8) ?? Data())
@@ -31,7 +31,7 @@ extension String {
         }
     }
 
-    public func removeBackSlashes() -> String {
+    func removeBackSlashes() -> String {
         replacingOccurrences(of: "\\\\\"", with: "\"")
             .replacingOccurrences(of: "\\\"", with: "\"")
             .replacingOccurrences(of: "\\\"", with: "\"")

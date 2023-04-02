@@ -6,7 +6,7 @@
 
 import Foundation
 
-extension Date {
+public extension Date {
     func getDurationTimerString() -> String {
         let interval = Date().timeIntervalSince1970 - timeIntervalSince1970
         let formatter = DateComponentsFormatter()

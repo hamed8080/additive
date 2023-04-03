@@ -1,6 +1,4 @@
-
 Pod::Spec.new do |s|
-
   s.name         = "Additive"
   s.version      = "1.0.0"
   s.summary      = "Additive"
@@ -12,7 +10,5 @@ Pod::Spec.new do |s|
   s.swift_versions = "4.0"
   s.source       = { :git => "https://pubgi.fanapsoft.ir/chat/ios/additive", :tag => s.version }
   s.source_files = "Sources/Additive/**/*.{h,swift,xcdatamodeld,m,momd}"
-  s.resources = "Sources/Additive/Resources/*.xcdatamodeld"
   s.frameworks  = "Foundation" , "CoreData"
-
 end

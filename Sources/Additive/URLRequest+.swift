@@ -18,11 +18,10 @@ public enum HTTPMethod: String {
     case connect = "CONNECT"
 }
 
-
 public extension URLRequest {
     var method: HTTPMethod {
         get {
-            return HTTPMethod(rawValue: httpMethod ?? "GET") ?? .get
+            HTTPMethod(rawValue: httpMethod ?? "GET") ?? .get
         }
         set {
             httpMethod = newValue.rawValue

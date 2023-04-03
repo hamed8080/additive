@@ -7,7 +7,7 @@
 
 import CoreData
 public extension NSManagedObjectContext {
-    func perform(_ block: @escaping () throws -> Void, errorCompeletion: ((Error) -> Void)? = nil ) {
+    func perform(_ block: @escaping () throws -> Void, errorCompeletion: ((Error) -> Void)? = nil) {
         perform {
             do {
                 try block()

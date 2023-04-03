@@ -8,7 +8,7 @@ import Foundation
 
 public extension Data {
     /// A converter extension that converts data to string with UTF-8.
-    func string() -> String? {
+    var utf8String: String? {
         String(data: self, encoding: .utf8)
     }
 }

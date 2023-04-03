@@ -32,13 +32,7 @@ public extension String {
     }
 
     func removeBackSlashes() -> String {
-        replacingOccurrences(of: "\\\\\"", with: "\"")
-            .replacingOccurrences(of: "\\\"", with: "\"")
-            .replacingOccurrences(of: "\\\"", with: "\"")
-            .replacingOccurrences(of: "\\\"", with: "\"")
-            .replacingOccurrences(of: "\\\\\"", with: "\"")
-            .replacingOccurrences(of: "\\\"", with: "\"")
-            .replacingOccurrences(of: "\\\"", with: "\"")
+        replacingOccurrences(of: "\\", with: "")
             .replacingOccurrences(of: "\"{", with: "\n{")
             .replacingOccurrences(of: "}\"", with: "}\n")
             .replacingOccurrences(of: "\"[", with: "\n[")

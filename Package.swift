@@ -18,8 +18,8 @@ let package = Package(
             targets: ["Additive"]),
     ],
     dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
+//        .package(path: "../Mocks"),
+        //        .package(url: "http://pubgi.fanapsoft.ir/chat/ios/mocks.git", exact: "1.0.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -30,6 +30,11 @@ let package = Package(
         ),
         .testTarget(
             name: "AdditiveTests",
-            dependencies: ["Additive"]),
+            dependencies: ["Additive"],
+            resources: [
+                .copy("Resources/icon.png"),
+                .copy("Resources/Localizable.strings")
+            ]
+        ),
     ]
 )

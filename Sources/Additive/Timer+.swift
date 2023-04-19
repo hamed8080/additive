@@ -7,14 +7,15 @@
 import Foundation
 public protocol TimerProtocol {
     @discardableResult
-    func scheduledTimer(interval: TimeInterval, repeats: Bool, block: @escaping @Sendable (Timer) -> Void) -> Timer
+    func scheduledTimer(interval: TimeInterval, repeats: Bool, block: @escaping @Sendable (TimerProtocol) -> Void) -> TimerProtocol
     func invalidateTimer()
     var isValid: Bool { get }
+    func fire()
 }
 
 extension Timer: TimerProtocol {
     @discardableResult
-    public func scheduledTimer(interval: TimeInterval, repeats: Bool, block: @escaping @Sendable (Timer) -> Void) -> Timer {
+    public func scheduledTimer(interval: TimeInterval, repeats: Bool, block: @escaping @Sendable (TimerProtocol) -> Void) -> TimerProtocol {
         Timer.scheduledTimer(withTimeInterval: interval, repeats: repeats, block: block)
     }
 

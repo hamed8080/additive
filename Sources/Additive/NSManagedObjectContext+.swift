@@ -1,9 +1,8 @@
 //
-//  NSManagedObjectContext+.swift
-//  Additive
+// NSManagedObjectContext+.swift
+// Copyright (c) 2022 Additive
 //
-//  Created by hamed on 3/1/23.
-//
+// Created by Hamed Hosseini on 9/27/22.
 
 import CoreData
 public extension NSManagedObjectContext {

@@ -7,28 +7,40 @@
 import CommonCrypto
 import CryptoKit
 import Foundation
+import NaturalLanguage
+#if canImport(UIKit)
+    import UIKit
+#endif
 
 public extension String {
     var md5: String? {
-        if #available(iOS 13.0, *) {
-            let digest = Insecure.MD5.hash(data: self.data(using: .utf8) ?? Data())
-            return digest.map { String(format: "%02hhx", $0) }.joined()
+        if #available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, *) {
+            return md5NewVersion
         } else {
-            let length = Int(CC_MD5_DIGEST_LENGTH)
-            let messageData = data(using: .utf8)!
-            var digestData = Data(count: length)
-
-            _ = digestData.withUnsafeMutableBytes { digestBytes -> UInt8 in
-                messageData.withUnsafeBytes { messageBytes -> UInt8 in
-                    if let messageBytesBaseAddress = messageBytes.baseAddress, let digestBytesBlindMemory = digestBytes.bindMemory(to: UInt8.self).baseAddress {
-                        let messageLength = CC_LONG(messageData.count)
-                        CC_MD5(messageBytesBaseAddress, messageLength, digestBytesBlindMemory)
-                    }
-                    return 0
-                }
-            }
-            return digestData.map { String(format: "%02hhx", $0) }.joined()
+            return md5Older
         }
+    }
+
+    @available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, *)  internal var md5NewVersion: String {
+        let digest = Insecure.MD5.hash(data: data(using: .utf8) ?? Data())
+        return digest.map { String(format: "%02hhx", $0) }.joined()
+    }
+
+    internal var md5Older: String? {
+        let length = Int(CC_MD5_DIGEST_LENGTH)
+        let messageData = data(using: .utf8)!
+        var digestData = Data(count: length)
+
+        _ = digestData.withUnsafeMutableBytes { digestBytes -> UInt8 in
+            messageData.withUnsafeBytes { messageBytes -> UInt8 in
+                if let messageBytesBaseAddress = messageBytes.baseAddress, let digestBytesBlindMemory = digestBytes.bindMemory(to: UInt8.self).baseAddress {
+                    let messageLength = CC_LONG(messageData.count)
+                    CC_MD5(messageBytesBaseAddress, messageLength, digestBytesBlindMemory)
+                }
+                return 0
+            }
+        }
+        return digestData.map { String(format: "%02hhx", $0) }.joined()
     }
 
     func removeBackSlashes() -> String {
@@ -57,17 +69,42 @@ public extension String {
         NSLocalizedString(self, bundle: bundle, comment: "")
     }
 
-    func toURLCompoenentString(encodable: Encodable) -> String? {
-        var queryStringUrl = self
-        if let parameters = try? encodable.asDictionary(), parameters.count > 0 {
-            var urlComp = URLComponents(string: self)!
-            urlComp.queryItems = []
-            parameters.forEach { key, value in
-                urlComp.queryItems?.append(URLQueryItem(name: key, value: "\(value)"))
-            }
-            queryStringUrl = urlComp.url?.absoluteString ?? self
-            return queryStringUrl
+    #if canImport(UIKit)
+        func widthOfString(usingFont font: UIKit.UIFont) -> CGFloat {
+            let fontAttributes = [NSAttributedString.Key.font: font]
+            return NSString(string: self).size(withAttributes: fontAttributes).width
         }
-        return nil
+    #endif
+
+    var isEnglishString: Bool {
+        if #available(iOS 12.0, *) {
+            let languageRecognizer = NLLanguageRecognizer()
+            languageRecognizer.processString(self)
+            guard let code = languageRecognizer.dominantLanguage?.rawValue else { return true }
+            languageRecognizer.reset()
+            return Locale.current.localizedString(forIdentifier: code) == "English"
+        } else {
+            return true
+        }
+    }
+
+    func capitalizingFirstLetter() -> String {
+        prefix(1).uppercased() + lowercased().dropFirst()
+    }
+
+    mutating func capitalizeFirstLetter() {
+        self = capitalizingFirstLetter()
+    }
+}
+
+public extension Optional where Wrapped == any Collection {
+    var isEmptyOrNil: Bool {
+        self == nil || self?.isEmpty == true
+    }
+}
+
+public extension String? {
+    var isEmptyOrNil: Bool {
+        self == nil || self?.isEmpty == true
     }
 }

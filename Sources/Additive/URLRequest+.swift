@@ -21,7 +21,11 @@ public enum HTTPMethod: String {
 public extension URLRequest {
     var method: HTTPMethod {
         get {
-            HTTPMethod(rawValue: httpMethod ?? "GET") ?? .get
+            if let httpMethod = httpMethod, let value = HTTPMethod(rawValue: httpMethod) {
+                return value
+            } else {
+                return .get
+            }
         }
         set {
             httpMethod = newValue.rawValue

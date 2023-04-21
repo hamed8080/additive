@@ -28,7 +28,7 @@ public extension Encodable {
     func asDictionary() throws -> [String: Any] {
         let data = try JSONEncoder.instance.encode(self)
         guard let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
-            throw NSError()
+            throw NSError(domain: "failed to make json object", code: -1, userInfo: nil)
         }
         return dictionary
     }
@@ -36,7 +36,7 @@ public extension Encodable {
     func asDictionaryNuallable() throws -> [String: Any?] {
         let data = try JSONEncoder.instance.encode(self)
         guard let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any?] else {
-            throw NSError()
+            throw NSError(domain: "failed to make json object", code: -1, userInfo: nil)
         }
         return dictionary
     }

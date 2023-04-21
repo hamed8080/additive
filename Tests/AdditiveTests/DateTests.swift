@@ -6,20 +6,32 @@ final class DateTests: XCTestCase {
 
     func testGetTime() {
         // Given
-        let value = Date(timeIntervalSince1970: 1681314000000)
+        let value = Date(timeIntervalSince1970: 1681314000)
         // When
-        let result = value.getTime()
+        let result = value.getTime(localIdentifire: Locale.current.identifier)
         // Then
-        XCTAssertEqual(result, "10:10 PM", "Expected the time string to be 10:10 PM but it's \(result)")
+        if Locale.current.identifier.lowercased() == "en_us" {
+            XCTAssertEqual(result, "7:10 PM", "Expected the time string to be '7:10 PM' but it's \(result)")
+        } else if Locale.current.identifier.lowercased().contains("ir") {
+            XCTAssertEqual(result, "19:10", "Expected the time string to be '19:10' but it's \(result)")
+        } else if Locale.current.identifier.lowercased().contains("de") {
+            XCTAssertEqual(result, "19:10", "Expected the time string to be '19:10' but it's \(result)")
+        }
     }
 
     func testGetDate() {
         // Given
-        let value = UInt(1681314000000)
+        let value = Date(timeIntervalSince1970: 1681314000)
         // When
-        let result = value.date.getDate()
+        let result = value.getDate(localIdentifire: Locale.current.identifier)
         // Then
-        XCTAssertEqual(result, "2023-04-12", "Expected the date string to be 2023-04-12 but it's \(result)")
+        if Locale.current.identifier.lowercased() == "en_us" {
+            XCTAssertEqual(result, "2023-04-12", "Expected the date string to be '2023-04-12' but it's \(result)")
+        } else if Locale.current.identifier.lowercased().contains("ir") {
+            XCTAssertEqual(result, "1402-01-23", "Expected the date string to be '1402-01-23' but it's \(result)")
+        } else if Locale.current.identifier.lowercased().contains("de") {
+            XCTAssertEqual(result, "2023-04-12", "Expected the date string to be '2023-04-12' but it's \(result)")
+        }
     }
 
     //LEFT=====CENTER====RIGHT

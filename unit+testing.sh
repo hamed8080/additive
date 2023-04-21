@@ -12,6 +12,8 @@ CODE_COVERAGE_PATH="codecov.json"
 
 rm -r "${RESULT_BUNDLE_PATH}"
 
+echo "printing the list of test plans"
+xcodebuild -scheme Additive -showTestPlans
 
 xcodebuild clean test \
 -scheme "${TARGET_NAME}" \

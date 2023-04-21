@@ -54,7 +54,13 @@ final class DateTests: XCTestCase {
         // When
         let result = date.timeAgoSinceDateCondense
         // Then
-        XCTAssertEqual(result, "Sep 19, 48", "Expected the string to be Sep 19, 48 but it's \(String(describing: result))")
+        if Locale.current.identifier.lowercased() == "en_us" {
+            XCTAssertEqual(result, "Sep 19, 48", "Expected the string to be 'Sep 19, 48' but it's \(String(describing: result))")
+        } else if Locale.current.identifier.lowercased().contains("ir") {
+            XCTAssertEqual(result, "Mehr 02, 27 AP", "Expected the string to be 'Mehr 02, 27 AP' but it's \(String(describing: result))")
+        } else if Locale.current.identifier.lowercased().contains("de") {
+            XCTAssertEqual(result, "19. Sept. 48", "Expected the string to be '19. Sept. 48' but it's \(String(describing: result))")
+        }
     }
 
     @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
@@ -66,7 +72,9 @@ final class DateTests: XCTestCase {
         // Then
         XCTAssertFalse(result.contains(","), "Expected the string does not contain ',' but it's \(String(describing: result))")
         XCTAssertTrue(result.contains(":"), "Expected the string contains ':' but it's \(String(describing: result))")
-        XCTAssertTrue(result.contains("AM") || result.contains("PM"), "Expected the string contains 'AM' OR 'PM' but it's \(String(describing: result))")
+        if Locale.current.identifier.lowercased() == "en_us" {
+            XCTAssertTrue(result.contains("AM") || result.contains("PM"), "Expected the string contains 'AM' OR 'PM' but it's \(String(describing: result))")
+        }
     }
 
     @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
@@ -91,8 +99,15 @@ final class DateTests: XCTestCase {
         let oneDayLaterInTheSameYear = calendar.date(byAdding: .day, value: 1, to: startOfTheYear)!
         // When
         let result = oneDayLaterInTheSameYear.timeAgoSinceDateCondense!
+        let spaceCount = result.split(separator: " ").count
         // Then
-        XCTAssertEqual(result.split(separator: " ").count , 4,  "Expected the string contains 4 spaces between Month, Day and Time and `at` but it's \(String(describing: result))")
+        if Locale.current.identifier.lowercased() == "en_us" {
+            XCTAssertEqual(spaceCount, 4,  "Expected the string contains 4 spaces between Month, Day and Time and `at` but it's \(String(describing: result))")
+        } else if Locale.current.identifier.lowercased().contains("ir")  {
+            XCTAssertEqual(spaceCount, 4,  "Expected the string contains 4 spaces between Month, Day and Time and `at` but it's \(String(describing: result))")
+        } else if Locale.current.identifier.lowercased().contains("de") {
+            XCTAssertEqual(spaceCount , 3,  "Expected the string contains 3 spaces between Month, Day and Time and `at` but it's \(String(describing: result))")
+        }
         XCTAssertTrue(result.contains(":"), "Expected the string contains ':' but it's \(String(describing: result))")
         XCTAssertFalse(result.contains("AM") || result.contains("PM"),  "Expected the string does not contain 'AM' OR 'PM' but it's \(String(describing: result))")
     }

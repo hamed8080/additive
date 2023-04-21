@@ -9,11 +9,11 @@
 TARGET_NAME="Additive"
 RESULT_BUNDLE_PATH=".build/ResultBundle.xcresult"
 CODE_COVERAGE_PATH="codecov.json"
-#
-#rm -r "${RESULT_BUNDLE_PATH}"
-#
 
-xcodebuild test \
+rm -r "${RESULT_BUNDLE_PATH}"
+
+
+xcodebuild clean test \
 -scheme "${TARGET_NAME}" \
 -sdk iphonesimulator \
 -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2' \

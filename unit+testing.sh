@@ -1,15 +1,42 @@
-swift test \
-    --enable-code-coverage \
-    --parallel --num-workers 2 \
+#swift test \
+#    --enable-code-coverage \
+#    --parallel --num-workers 2 \
+
+#swift test \
+#    --enable-code-coverage \
+#    --parallel --num-workers 2 \
+
+TARGET_NAME="Additive"
+RESULT_BUNDLE_PATH=".build/ResultBundle.xcresult"
+CODE_COVERAGE_PATH="codecov.json"
+#
+#rm -r "${RESULT_BUNDLE_PATH}"
+#
 
 xcodebuild test \
--scheme Additive \
+-scheme "${TARGET_NAME}" \
 -sdk iphonesimulator \
--destination 'platform=iOS Simulator,name=iPhone 14,OS=16.4'
+-destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2' \
+-enableCodeCoverage YES \
+-testPlan "${TARGET_NAME}" \
+-resultBundlePath "${RESULT_BUNDLE_PATH}" \
 CODE_SIGN_IDENTITY="" \
 CODE_SIGN_ENTITLEMENTS="" \
 CODE_SIGNING_REQUIRED="NO" \
 CODE_SIGNING_ALLOWED="NO"
+#-derivedDataPath .build/derivedDataPath \ | xcpretty && exit ${PIPESTATUS[0]}
+
+#curl -Os https://uploader.codecov.io/latest/macos/codecov
+#
+#chmod +x codecov
+#./codecov -t ${CODECOV_TOKEN} --xcodeArchivePath codecov.xcresult
+
+
+#xcrun xccov view --report --json "${RESULT_BUNDLE_PATH}" > "${CODE_COVERAGE_PATH}"
+
+
+#xcrun xcresulttool get --format json --path "${RESULT_BUNDLE_PATH}" > "${CODE_COVERAGE_PATH}"
+#xcrun xccov view .build/derivedDataPath/Logs/Test/*.xccoveragereport
 
 
 #xcrun llvm-cov export \

@@ -18,7 +18,7 @@ xcodebuild clean test \
 -sdk iphonesimulator \
 -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2' \
 -enableCodeCoverage YES \
--testPlan "${TARGET_NAME}" \
+-testPlan "${TARGET_NAME}TestPlan" \
 -resultBundlePath "${RESULT_BUNDLE_PATH}" \
 CODE_SIGN_IDENTITY="" \
 CODE_SIGN_ENTITLEMENTS="" \

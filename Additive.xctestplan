@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "4530AF08-D3A0-4FCC-8B88-5D5FA80A5F77",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "AdditiveTests",
+        "name" : "AdditiveTests"
+      }
+    }
+  ],
+  "version" : 1
+}

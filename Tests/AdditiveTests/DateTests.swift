@@ -10,7 +10,7 @@ final class DateTests: XCTestCase {
         // When
         let result = value.getTime()
         // Then
-        XCTAssertEqual(result, "10:10 PM")
+        XCTAssertEqual(result, "10:10 PM", "Expected the time string to be 10:10 PM but it's \(result)")
     }
 
     func testGetDate() {
@@ -19,7 +19,7 @@ final class DateTests: XCTestCase {
         // When
         let result = value.date.getDate()
         // Then
-        XCTAssertEqual(result, "2023-04-12")
+        XCTAssertEqual(result, "2023-04-12", "Expected the date string to be 2023-04-12 but it's \(result)")
     }
 
     //LEFT=====CENTER====RIGHT
@@ -32,7 +32,7 @@ final class DateTests: XCTestCase {
         // When
         let result = center.isBetweeen(date: left, andDate: right)
         // Then
-        XCTAssertTrue(result)
+        XCTAssertTrue(result, "Expected the result to be true but it's \(result)")
     }
 
     func testIsBetween_WhenDateIsNotBetweenTowOtherDate_returnTrue() {
@@ -44,7 +44,7 @@ final class DateTests: XCTestCase {
         // When
         let result = center.isBetweeen(date: left, andDate: right)
         // Then
-        XCTAssertFalse(result)
+        XCTAssertFalse(result, "Expected the result to be flase but it's \(result)")
     }
 
     @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
@@ -54,7 +54,7 @@ final class DateTests: XCTestCase {
         // When
         let result = date.timeAgoSinceDateCondense
         // Then
-        XCTAssertEqual(result, "Sep 19, 48")
+        XCTAssertEqual(result, "Sep 19, 48", "Expected the string to be Sep 19, 48 but it's \(String(describing: result))")
     }
 
     @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
@@ -64,9 +64,9 @@ final class DateTests: XCTestCase {
         // When
         let result = date.timeAgoSinceDateCondense!
         // Then
-        XCTAssertFalse(result.contains(","))
-        XCTAssertTrue(result.contains(":"))
-        XCTAssertTrue(result.contains("AM") || result.contains("PM"))
+        XCTAssertFalse(result.contains(","), "Expected the string does not contain ',' but it's \(String(describing: result))")
+        XCTAssertTrue(result.contains(":"), "Expected the string contains ':' but it's \(String(describing: result))")
+        XCTAssertTrue(result.contains("AM") || result.contains("PM"), "Expected the string contains 'AM' OR 'PM' but it's \(String(describing: result))")
     }
 
     @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
@@ -78,9 +78,9 @@ final class DateTests: XCTestCase {
         // When
         let result = oneDayLaterInTheSameWeek.timeAgoSinceDateCondense!
         // Then
-        XCTAssertTrue(result.contains(" "), "There should be a space between Day name and time")
-        XCTAssertTrue(result.contains(":"))
-        XCTAssertFalse(result.contains("AM") || result.contains("PM"))
+        XCTAssertTrue(result.contains(" "), "Expected the string contains an space but it's \(String(describing: result))")
+        XCTAssertTrue(result.contains(":"),  "Expected the string contains ':' but it's \(String(describing: result))")
+        XCTAssertFalse(result.contains("AM") || result.contains("PM"), "Expected the string does not contain 'AM' OR 'PM' but it's \(String(describing: result))")
     }
 
     @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
@@ -92,9 +92,9 @@ final class DateTests: XCTestCase {
         // When
         let result = oneDayLaterInTheSameYear.timeAgoSinceDateCondense!
         // Then
-        XCTAssertEqual(result.split(separator: " ").count , 4, "There should be 4 spacees between Month, Day and Time and `at`")
-        XCTAssertTrue(result.contains(":"))
-        XCTAssertFalse(result.contains("AM") || result.contains("PM"))
+        XCTAssertEqual(result.split(separator: " ").count , 4,  "Expected the string contains 4 spaces between Month, Day and Time and `at` but it's \(String(describing: result))")
+        XCTAssertTrue(result.contains(":"), "Expected the string contains ':' but it's \(String(describing: result))")
+        XCTAssertFalse(result.contains("AM") || result.contains("PM"),  "Expected the string does not contain 'AM' OR 'PM' but it's \(String(describing: result))")
     }
 
     func testMillisecondsSince1970() {
@@ -103,7 +103,7 @@ final class DateTests: XCTestCase {
         // When
         let result = value.millisecondsSince1970
         // Then
-        XCTAssertEqual(result, 1681314000000 * 1000, accuracy: 0)
+        XCTAssertEqual(result, 1681314000000 * 1000, accuracy: 0, "Expected the int to be equal to 1681314000000000 but it's \(String(describing: result))")
     }
 
     func testInitMillisecons() {
@@ -112,7 +112,7 @@ final class DateTests: XCTestCase {
         // When
         let result = value.timeIntervalSince1970
         // Then
-        XCTAssertEqual(result, 1681314000000 / 1000, accuracy: 0)
+        XCTAssertEqual(result, 1681314000000 / 1000, accuracy: 0, "Expected the int to be equal to 1681314000 but it's \(String(describing: result))")
     }
 
     func testTimerString() {
@@ -121,6 +121,6 @@ final class DateTests: XCTestCase {
         // When
         let result = value.timerString
         // Then
-        XCTAssertEqual(result?.count, 8)
+        XCTAssertEqual(result?.count, 8, "Expected the string to have format with 8 character like 12:23:34 but it's \(String(describing: result))")
     }
 }

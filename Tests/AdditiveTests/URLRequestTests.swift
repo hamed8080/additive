@@ -10,7 +10,7 @@ final class URLRequestTests: XCTestCase {
         let request = URLRequest(url: url)
         // Then
         let result = request.method
-        XCTAssertEqual(result, .get)
+        XCTAssertEqual(result, .get, "Expected the mehod to be equal to '.get' but it's \(String(describing: result))")
     }
 
     func testMethod_whenIsPost_returnPostEnum() {
@@ -21,7 +21,7 @@ final class URLRequestTests: XCTestCase {
         request.httpMethod = "POST"
         // Then
         let result = request.method
-        XCTAssertEqual(result, .post)
+        XCTAssertEqual(result, .post, "Expected the mehod to be equal to '.post' but it's \(String(describing: result))")
     }
 
     func testMethod_whenIsNotValidMethod_returnGetAsDefault() {
@@ -32,7 +32,7 @@ final class URLRequestTests: XCTestCase {
         request.httpMethod = "WRONG"
         // Then
         let result = request.method
-        XCTAssertEqual(result, .get)
+        XCTAssertEqual(result, .get, "Expected the mehod to be equal to '.get' but it's \(String(describing: result))")
     }
 
     func testMethod_whenIsGet_returnGETString() {
@@ -43,7 +43,7 @@ final class URLRequestTests: XCTestCase {
         request.method = .get
         // Then
         let result = request.httpMethod
-        XCTAssertEqual(result, "GET")
+        XCTAssertEqual(result, "GET", "Expected the mehod value to be equal to 'GET' but it's \(String(describing: result))")
     }
 
     func testHttpMethod_whenIsGet_returnGETEnum() {
@@ -54,6 +54,6 @@ final class URLRequestTests: XCTestCase {
         request.httpMethod = "GET"
         // Then
         let result = request.method
-        XCTAssertEqual(result, .get)
+        XCTAssertEqual(result, .get, "Expected the mehod to be equal to '.get' but it's \(String(describing: result))")
     }
 }

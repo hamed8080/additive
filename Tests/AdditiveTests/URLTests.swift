@@ -15,7 +15,8 @@ final class URLTests: XCTestCase {
         url.appendQueryItems(with: json)
         // Then
         let expectationResult = "http://www.example.com?name=John"
-        XCTAssertEqual(url.absoluteString, expectationResult)
+        let result = url.absoluteString
+        XCTAssertEqual(result, expectationResult, "Expected the url absoluteString string to be equal to '\(expectationResult)' but it's \(String(describing: result))")
     }
 
     func testAppendQueryItemsiOS15_whenHasValue_appendedAtEnd() {
@@ -27,7 +28,8 @@ final class URLTests: XCTestCase {
         url.appendQueryItems(queryItems!)
         // Then
         let expectationResult = "http://www.example.com?name=John"
-        XCTAssertEqual(url.absoluteString, expectationResult)
+        let result = url.absoluteString
+        XCTAssertEqual(result, expectationResult, "Expected the url absoluteString string to be equal to '\(expectationResult)' but it's \(String(describing: result))")
     }
 
     func testAppendQueryItems_whenHasNotValue_appendedNothingAtEnd() {
@@ -38,7 +40,8 @@ final class URLTests: XCTestCase {
         // When
         url.appendQueryItems(with: json)
         // Then
-        XCTAssertEqual(url.absoluteString, urlString)
+        let result = url.absoluteString
+        XCTAssertEqual(result, urlString, "Expected the url absoluteString string to be equal to '\(urlString)' but it's \(String(describing: result))")
     }
 
     func testAppendQueryItems_whenHasNotValue_appendedNothingAtEndOfCurrentQueryItems() {
@@ -49,46 +52,43 @@ final class URLTests: XCTestCase {
         // When
         url.appendQueryItems(with: json)
         // Then
-        XCTAssertEqual(url.absoluteString, urlString)
+        let result = url.absoluteString
+        XCTAssertEqual(result, urlString, "Expected the url absoluteString string to be equal to '\(urlString)' but it's \(String(describing: result))")
     }
 
     func testPathExtension_whenIsValidFileURL_returnValue() {
         // Given
         let url = URL(string: filePath)!
-        // When
-        let ext = url.fileExtension
         // Then
+        let result = url.fileExtension
         let expectationResult = "jpg"
-        XCTAssertEqual(ext, expectationResult)
+        XCTAssertEqual(result, expectationResult, "Expected the ext to be equal to '\(expectationResult)' but it's \(String(describing: result))")
     }
     func testPathExtension_whenIsNotValidFileURL_returnNil() {
         // Given
         let url = URL(string: urlString)!
-        // When
-        let ext = url.fileExtension
         // Then
+        let result = url.fileExtension
         let expectationResult = ""
-        XCTAssertEqual(ext, expectationResult)
+        XCTAssertEqual(result, expectationResult, "Expected the ext to be equal to '\(expectationResult)' but it's \(String(describing: result))")
     }
 
     func testFileName_whenIsValidFileURL_returnFileName() {
         // Given
         let url = URL(string: filePath)!
-        // When
-        let fileName = url.fileName
         // Then
+        let result = url.fileName
         let expectationResult = "picture"
-        XCTAssertEqual(fileName, expectationResult)
+        XCTAssertEqual(result, expectationResult, "Expected the fileName to be equal to '\(expectationResult)' but it's \(String(describing: result))")
     }
 
     func testFileNameWithExtension_whenIsValidFileURL_returnFileNameWithExtension() {
         // Given
         let url = URL(string: filePath)!
-        // When
-        let result = url.fileNameWirhExtension
         // Then
+        let result = url.fileNameWirhExtension
         let expectationResult = "picture.jpg"
-        XCTAssertEqual(result, expectationResult)
+        XCTAssertEqual(result, expectationResult, "Expected the fileNameWithExtension string to be equal to '\(expectationResult)' but it's \(String(describing: result))")
     }
 
     func testFileNameWithExtension_whenIsNotValidFileURL_returnFileNameWithExtensionNil() {
@@ -97,56 +97,51 @@ final class URLTests: XCTestCase {
         // When
         let result = url.fileNameWirhExtension
         // Then
-        XCTAssertNil(result)
+        XCTAssertNil(result, "Expected the fileNameWirhExtension to be nil but it's \(String(describing: result))")
     }
 
     func testImageScale_whenImageIsValid_returnReducedVersion() {
         // Given
         let url = Bundle.module.url(forResource: "icon", withExtension: "png")!
-        // When
-        let result = url.imageScale(width: 128)
         // Then
-        XCTAssertEqual(result?.0.width, 128)
+        let result = url.imageScale(width: 128)?.0.width
+        XCTAssertEqual(result, 128, "Expected the width of the image to be equal to '128' but it's \(String(describing: result))")
     }
 
     func testImageScale_whenImageURLIsNotValid_returnNil() {
         // Given
         let url = URL(string: urlString)!
-        // When
-        let result = url.imageScale(width: 128)
         // Then
-        XCTAssertNil(result)
+        let result = url.imageScale(width: 128)
+        XCTAssertNil(result, "Expected the result type of the with function to be nil but it's \(String(describing: result))")
     }
 
 #if canImport(MobileCoreServices)
     func testMimeType_whenIsFile_returnMimeType() {
         // Given
         let url = URL(string: filePath)!
-        // When
-        let result = url.mimeType
         // Then
+        let result = url.mimeType
         let expectationResult = "image/jpeg"
-        XCTAssertEqual(result, expectationResult)
+        XCTAssertEqual(result, expectationResult, "Expected the mimetype to be equal to '\(expectationResult)' but it's \(String(describing: result))")
     }
 
     func testMimeTypeiOS15_whenIsFile_returnMimeType() {
         // Given
         let url = URL(string: filePath)!
-        // When
-        let result = url.ios15MimeType
         // Then
+        let result = url.ios15MimeType
         let expectationResult = "image/jpeg"
-        XCTAssertEqual(result, expectationResult)
+        XCTAssertEqual(result, expectationResult, "Expected the mimetype to be equal to '\(expectationResult)' but it's \(String(describing: result))")
     }
 
     func testMimeTypeiOS14_whenIsFile_returnMimeType() {
         // Given
         let url = URL(string: filePath)!
-        // When
-        let result = url.ios14MimeType
         // Then
+        let result = url.ios14MimeType
         let expectationResult = "image/jpeg"
-        XCTAssertEqual(result, expectationResult)
+        XCTAssertEqual(result, expectationResult, "Expected the mimetype to be equal to '\(expectationResult)' but it's \(String(describing: result))")
     }
 #endif
 }

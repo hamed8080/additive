@@ -11,7 +11,7 @@ final class StringTests: XCTestCase {
         let result = json.removeBackSlashes()
         // Then
         let expectionResult = "[{\"name\": \"Hamed\", \"config\": \n{\"ip\": \"192.168.1.1\"}\n, \"Staff\": \n[{\"name\": \"John\", \"id\": 1}]\n}]"
-        XCTAssertEqual(result, expectionResult)
+        XCTAssertEqual(result, expectionResult, "Expected the string to be equal to \(expectionResult) but it's \(String(describing: result))")
     }
 
     func testCapitalizeFirstLetter() {
@@ -20,7 +20,7 @@ final class StringTests: XCTestCase {
         // When
         value.capitalizeFirstLetter()
         // Then
-        XCTAssertEqual(value, "Hamed")
+        XCTAssertEqual(value, "Hamed", "Expected the string to be equal to 'Hamed' in uppercased mode but it's \(String(describing: value))")
     }
 
     func testIsNillOrEmpty_whenIsEmpty_returnTrue() {
@@ -29,7 +29,7 @@ final class StringTests: XCTestCase {
         // When
         let result = value.isEmptyOrNil
         // Then
-        XCTAssertTrue(result)
+        XCTAssertTrue(result, "Expected the string to be empty and equals to true but it's \(String(describing: result))")
     }
 
     func testIsNillOrEmpty_whenIsNil_returnTrue() {
@@ -38,7 +38,7 @@ final class StringTests: XCTestCase {
         // When
         let result = value.isEmptyOrNil
         // Then
-        XCTAssertTrue(result)
+        XCTAssertTrue(result, "Expected the string to be empty and equals to true but it's \(String(describing: result))")
     }
 
     func testIsNillOrEmpty_whenHasValue_returnFalse() {
@@ -47,7 +47,7 @@ final class StringTests: XCTestCase {
         // When
         let result = value.isEmptyOrNil
         // Then
-        XCTAssertFalse(result)
+        XCTAssertFalse(result, "Expected the string to be not empty and equals to false but it's \(String(describing: result))")
     }
 
     func testIsEnglish_whenNotEnglish_returnFalse() {
@@ -56,7 +56,7 @@ final class StringTests: XCTestCase {
         // When
         let result = value.isEnglishString
         // Then
-        XCTAssertFalse(result)
+        XCTAssertFalse(result, "Expected the string to be not 'سلام' and equals to false but it's \(String(describing: result))")
     }
 
     func testIsEnglish_whenNotEnglish_returnTrue() {
@@ -65,7 +65,7 @@ final class StringTests: XCTestCase {
         // When
         let result = value.isEnglishString
         // Then
-        XCTAssertTrue(result)
+        XCTAssertTrue(result, "Expected to be equal to true but it's \(String(describing: result))")
     }
 
     #if canImport(UIKit)
@@ -75,7 +75,7 @@ final class StringTests: XCTestCase {
         // When
         let result = value.widthOfString(usingFont: .systemFont(ofSize: 16))
         // Then
-        XCTAssertEqual(result, 63, accuracy: 1)
+        XCTAssertEqual(result, 63, accuracy: 1, "Expected the width of the string to be equal to 63 but it's \(String(describing: result))")
     }
     #endif
 
@@ -85,7 +85,7 @@ final class StringTests: XCTestCase {
         // When
         let result = value.localized(bundle: .module)
         // Then
-        XCTAssertEqual(result, "Test Localize")
+        XCTAssertEqual(result, "Test Localize", "Expected the string to be equal to 'Test Localize' but it's \(String(describing: result))")
     }
 
     func testMD5() {
@@ -94,7 +94,7 @@ final class StringTests: XCTestCase {
         // When
         let result = value.md5
         // Then
-        XCTAssertEqual(result, "033bd94b1168d7e4f0d644c3c95e35bf")
+        XCTAssertEqual(result, "033bd94b1168d7e4f0d644c3c95e35bf", "Expected the md5 string to be equal to '033bd94b1168d7e4f0d644c3c95e35bf' but it's \(String(describing: result))")
     }
 
     @available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, *)
@@ -104,7 +104,7 @@ final class StringTests: XCTestCase {
         // When
         let result = value.md5NewVersion
         // Then
-        XCTAssertEqual(result, "033bd94b1168d7e4f0d644c3c95e35bf")
+        XCTAssertEqual(result, "033bd94b1168d7e4f0d644c3c95e35bf" , "Expected the md5 string to be equal to '033bd94b1168d7e4f0d644c3c95e35bf' but it's \(String(describing: result))")
     }
 
     func testMD5OlderVersion() {
@@ -113,6 +113,6 @@ final class StringTests: XCTestCase {
         // When
         let result = value.md5Older
         // Then
-        XCTAssertEqual(result, "033bd94b1168d7e4f0d644c3c95e35bf")
+        XCTAssertEqual(result, "033bd94b1168d7e4f0d644c3c95e35bf", "Expected the md5 string to be equal to '033bd94b1168d7e4f0d644c3c95e35bf' but it's \(String(describing: result))")
     }
 }

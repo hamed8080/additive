@@ -10,7 +10,7 @@ final class DataTests: XCTestCase {
         // When
         let result = data?.utf8String
         // Then
-        XCTAssertEqual(result, "TEST")
+        XCTAssertEqual(result, "TEST", "Expected the string to be equal to TEST but it's \(String(describing: result))")
     }
 
     func testUtf8StringOrEmpty_whenHasValue_returnString() {
@@ -19,7 +19,7 @@ final class DataTests: XCTestCase {
         // When
         let result = data?.utf8StringOrEmpty
         // Then
-        XCTAssertEqual(result, "TEST")
+        XCTAssertEqual(result, "TEST", "Expected the string to be equal to TEST but it's \(String(describing: result))")
     }
 
     func testUtf8StringOrEmpty_whenIsEmpty_returnEmpty() {
@@ -28,7 +28,7 @@ final class DataTests: XCTestCase {
         // When
         let result = data?.utf8StringOrEmpty
         // Then
-        XCTAssertEqual(result, "")
+        XCTAssertEqual(result, "", "Expected the string to be an empty string but it's \(String(describing: result))")
     }
 
     func testImageScale_whenImageIsValid_returnReducedVersion() throws {
@@ -36,9 +36,9 @@ final class DataTests: XCTestCase {
         let url = Bundle.module.url(forResource: "icon", withExtension: "png")!
         let data = try Data(contentsOf: url)
         // When
-        let result = data.imageScale(width: 128)
+        let result = data.imageScale(width: 128)?.0.width
         // Then
-        XCTAssertEqual(result?.0.width, 128)
+        XCTAssertEqual(result, 128, "Expected the width to be equal to 128 but it's \(String(describing: result))")
     }
 
     func testImageScale_whenImageIsNotValid_returnNil() {
@@ -47,6 +47,6 @@ final class DataTests: XCTestCase {
         // When
         let result = data.imageScale(width: 128)
         // Then
-        XCTAssertNil(result)
+        XCTAssertNil(result, "Expected the data to be no nil but it's \(String(describing: result))")
     }
 }

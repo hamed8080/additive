@@ -15,12 +15,12 @@ rm -r "${RESULT_BUNDLE_PATH}"
 echo "printing the list of test plans"
 xcodebuild -scheme Additive -showTestPlans
 
-xcodebuild clean test \
+xcodebuild test \
 -scheme "${TARGET_NAME}" \
 -sdk iphonesimulator \
 -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2' \
 -enableCodeCoverage YES \
--testPlan "${TARGET_NAME}TestPlan" \
+-testPlan "${TARGET_NAME}" \
 -resultBundlePath "${RESULT_BUNDLE_PATH}" \
 CODE_SIGN_IDENTITY="" \
 CODE_SIGN_ENTITLEMENTS="" \

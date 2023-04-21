@@ -23,13 +23,13 @@ final class NumberTests: XCTestCase {
         let resultTime = result.getTime(localIdentifire: Locale.current.identifier)
         if Locale.current.identifier.lowercased() == "en_us" {
             XCTAssertEqual(resultDate, "2023-04-12", "Expected the string to be equal to '2023-04-12' but it's \(String(describing: resultDate))")
-            XCTAssertEqual(resultTime, "7:10 PM", "Expected the string to be equal to '7:10 PM' but it's \(String(describing: resultTime))")
+            XCTAssertEqual(resultTime, "3:40 PM", "Expected the string to be equal to '3:40 PM' but it's \(String(describing: resultTime))")
         } else if Locale.current.identifier.lowercased().contains("ir") {
             XCTAssertEqual(resultDate, "1402-01-23", "Expected the string to be equal to '1402-01-23' but it's \(String(describing: resultDate))")
-            XCTAssertEqual(resultTime, "19:10", "Expected the string to be equal to '19:10' but it's \(String(describing: resultTime))")
+            XCTAssertEqual(resultTime, "15:40", "Expected the string to be equal to '15:40' but it's \(String(describing: resultTime))")
         } else if Locale.current.identifier.lowercased().contains("de") {
             XCTAssertEqual(resultDate, "2023-04-12", "Expected the string to be equal to '2023-04-12' but it's \(String(describing: resultDate))")
-            XCTAssertEqual(resultTime, "19:10", "Expected the string to be equal to '19:10' but it's \(String(describing: resultTime))")
+            XCTAssertEqual(resultTime, "15:40", "Expected the string to be equal to '15:40' but it's \(String(describing: resultTime))")
         }
     }
 }

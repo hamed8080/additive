@@ -12,6 +12,7 @@ public extension Date {
         formatter.dateStyle = .none
         formatter.timeStyle = .short
         formatter.locale = Locale(identifier: localIdentifire)
+        formatter.timeZone = .init(abbreviation: "GMT")
         return formatter.string(from: self)
     }
 
@@ -21,6 +22,7 @@ public extension Date {
         formatter.timeStyle = .short
         formatter.locale = Locale(identifier: localIdentifire)
         formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = .init(abbreviation: "GMT")
         return formatter.string(from: self)
     }
 

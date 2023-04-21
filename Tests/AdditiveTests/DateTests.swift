@@ -11,11 +11,11 @@ final class DateTests: XCTestCase {
         let result = value.getTime(localIdentifire: Locale.current.identifier)
         // Then
         if Locale.current.identifier.lowercased() == "en_us" {
-            XCTAssertEqual(result, "7:10 PM", "Expected the time string to be '7:10 PM' but it's \(result)")
+            XCTAssertEqual(result, "3:40 PM", "Expected the time string to be '3:40 PM' but it's \(result)")
         } else if Locale.current.identifier.lowercased().contains("ir") {
-            XCTAssertEqual(result, "19:10", "Expected the time string to be '19:10' but it's \(result)")
+            XCTAssertEqual(result, "15:40", "Expected the time string to be '15:40' but it's \(result)")
         } else if Locale.current.identifier.lowercased().contains("de") {
-            XCTAssertEqual(result, "19:10", "Expected the time string to be '19:10' but it's \(result)")
+            XCTAssertEqual(result, "15:40", "Expected the time string to be '15:40' but it's \(result)")
         }
     }
 

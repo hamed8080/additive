@@ -33,7 +33,7 @@ for ARCHIVE in $DOCC_ARCHIVE/*.doccarchive; do
     echo "Processing Archive: $ARCHIVE"
     $(xcrun --find docc) process-archive \
     transform-for-static-hosting "$ARCHIVE" \
-    --hosting-base-path $TARGET_NAME/$ARCHIVE_NAME \
+    --hosting-base-path $LOWERCASE_TARGET_NAME/$ARCHIVE_NAME \
     --output-path $DOCC_OUTPUT_FOLDER/$ARCHIVE_NAME
 done
 
@@ -51,7 +51,7 @@ if [ -n "$(git status --porcelain)" ]; then
     echo "Documentation changes found. Committing the changes to the '$DOCC_BRANCH_NAME' branch."
     echo "Please call push manually"
     git commit -m "Update Github Pages documentation site to $CURRENT_COMMIT_HASH"
-    open -n https://$GITHUB_USER_NAME.github.io/${TARGET_NAME}/${DOCC_HOST_BASE_PATH}/documentation/${LOWERCASE_TARGET_NAME}/
+    open -n https://$GITHUB_USER_NAME.github.io/${LOWERCASE_TARGET_NAME}/${DOCC_HOST_BASE_PATH}/documentation/${LOWERCASE_TARGET_NAME}/
 else
     # No changes found, nothing to commit.
     echo "No documentation changes found."

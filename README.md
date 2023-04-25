@@ -2,7 +2,7 @@
 [![codecov](https://codecov.io/gh/hamed8080/additive/branch/main/graph/badge.svg?token=R3J5LFUX1N)](https://codecov.io/gh/hamed8080/additive)
 [![tag](https://img.shields.io/github/v/tag/hamed8080/additive)]()
 ### A set of extensions to ease using of repetitive useful methods and variables.
-<img src="https://github.com/hamed8080/additive/raw/main/images/icon.png"  width="64" height="64">
+<img src="https://github.com/hamed8080/additive/raw/main/images/icon.png"  width="146" height="146">
 <br />
 
 ## Features

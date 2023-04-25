@@ -6,14 +6,9 @@
 #    --enable-code-coverage \
 #    --parallel --num-workers 2 \
 
-TARGET_NAME="Additive"
-RESULT_BUNDLE_PATH=".build/ResultBundle.xcresult"
-CODE_COVERAGE_PATH="codecov.json"
+source $(dirname $0)/environment+variables.sh
 
 rm -r "${RESULT_BUNDLE_PATH}"
-
-echo "printing the list of test plans"
-xcodebuild -scheme Additive -showTestPlans
 
 xcodebuild test \
 -scheme "${TARGET_NAME}" \
@@ -25,8 +20,8 @@ xcodebuild test \
 CODE_SIGN_IDENTITY="" \
 CODE_SIGN_ENTITLEMENTS="" \
 CODE_SIGNING_REQUIRED="NO" \
-CODE_SIGNING_ALLOWED="NO"
-#-derivedDataPath .build/derivedDataPath \ | xcpretty && exit ${PIPESTATUS[0]}
+CODE_SIGNING_ALLOWED="NO" | xcpretty && exit ${PIPESTATUS[0]} \
+#-derivedDataPath .build/derivedDataPath \
 
 #curl -Os https://uploader.codecov.io/latest/macos/codecov
 #

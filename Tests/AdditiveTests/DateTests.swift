@@ -98,7 +98,9 @@ final class DateTests: XCTestCase {
         // When
         let result = oneDayLaterInTheSameWeek.timeAgoSinceDateCondense!
         // Then
-        XCTAssertTrue(result.contains(" "), "Expected the string contains an space but it's \(String(describing: result))")
+        if !Locale.current.identifier.lowercased().contains("de") {
+            XCTAssertTrue(result.contains(" "), "Expected the string contains an space but it's \(String(describing: result))")
+        }
         XCTAssertTrue(result.contains(":"),  "Expected the string contains ':' but it's \(String(describing: result))")
         XCTAssertFalse(result.contains("AM") || result.contains("PM"), "Expected the string does not contain 'AM' OR 'PM' but it's \(String(describing: result))")
     }

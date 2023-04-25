@@ -49,11 +49,15 @@ public extension URL {
     }
 
     mutating func appendQueryItems(with encodable: Encodable) {
-        guard let queryItems = try? makeQueryItems(encodable: encodable) else { return }
-        if #available(macOS 13.0, iOS 16.0, tvOS 16.0, watchOS 9.0, *) {
-            appendQueryItemsiOS16(queryItems)
-        } else {
-            appendQueryItems(queryItems)
+        do {
+            guard let queryItems = try makeQueryItems(encodable: encodable) else { return }
+            if #available(macOS 13.0, iOS 16.0, tvOS 16.0, watchOS 9.0, *) {
+                appendQueryItemsiOS16(queryItems)
+            } else {
+                appendQueryItems(queryItems)
+            }
+        } catch {
+            print("An error has happened when trying to appned query.")
         }
     }
 

@@ -13,7 +13,6 @@ export DOCC_JSON_PRETTYPRINT="YES"
 rm -rf $DOCC_DATA
 
 xcodebuild \
--project $TARGET_NAME.xcodeproj \
 -derivedDataPath $DOCC_DATA \
 -scheme $TARGET_NAME \
 -destination 'platform=iOS Simulator,name=iPhone 14' \
@@ -34,9 +33,12 @@ for ARCHIVE in $DOCC_ARCHIVE/*.doccarchive; do
     echo "Processing Archive: $ARCHIVE"
     $(xcrun --find docc) process-archive \
     transform-for-static-hosting "$ARCHIVE" \
-    --hosting-base-path $TARGET_NAME/$ARCHIVE_NAME \
+    --hosting-base-path $LOWERCASE_TARGET_NAME/$ARCHIVE_NAME \
     --output-path $DOCC_OUTPUT_FOLDER/$ARCHIVE_NAME
 done
+
+cp images/icon.png $DOCC_OUTPUT_FOLDER/$TARGET_NAME/favicon.ico
+cp images/icon.svg $DOCC_OUTPUT_FOLDER/$TARGET_NAME/favicon.svg
 
 ### Save the current commit we've just built documentation from in a variable
 CURRENT_COMMIT_HASH=$(git rev-parse --short HEAD)
@@ -49,7 +51,7 @@ if [ -n "$(git status --porcelain)" ]; then
     echo "Documentation changes found. Committing the changes to the '$DOCC_BRANCH_NAME' branch."
     echo "Please call push manually"
     git commit -m "Update Github Pages documentation site to $CURRENT_COMMIT_HASH"
-    open -n https://$GITHUB_USER_NAME.github.io/${TARGET_NAME}/${DOCC_HOST_BASE_PATH}/documentation/${LOWERCASE_TARGET_NAME}/
+    open -n https://$GITHUB_USER_NAME.github.io/${LOWERCASE_TARGET_NAME}/${DOCC_HOST_BASE_PATH}/documentation/${LOWERCASE_TARGET_NAME}/
 else
     # No changes found, nothing to commit.
     echo "No documentation changes found."

@@ -110,7 +110,10 @@
 "references": {
 "doc://Additive/documentation/Additive": {
   "abstract" : [
-
+    {
+      "text" : "With Additive SDK you are able to use some repetitive functions as an extension.",
+      "type" : "text"
+    }
   ],
   "identifier" : "doc:\/\/Additive\/documentation\/Additive",
   "kind" : "symbol",

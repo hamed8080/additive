@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "With Additive SDK you are able to use some repetitive functions as an extension.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -23,6 +29,95 @@
     "symbolKind" : "module",
     "title" : "Additive"
   },
+  "primaryContentSections" : [
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "identifier" : "icon.png",
+              "type" : "image"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "anchor" : "Overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "items" : [
+            {
+              "checked" : true,
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "String extensions to facilitate coding and decoding also md5 and localized string.",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "checked" : true,
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Global static JsonEncoder and decoder to reduce heap allocation overheads.",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "checked" : true,
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Working with dates and global date formatter.",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "checked" : true,
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Protocols over URLSession as well as DispatchQueue and Timer in the light of Unit Testing.",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
   "schemaVersion" : {
     "major" : 0,
     "minor" : 3,
@@ -72,7 +167,10 @@
 "references": {
 "doc://Additive/documentation/Additive": {
   "abstract" : [
-
+    {
+      "text" : "With Additive SDK you are able to use some repetitive functions as an extension.",
+      "type" : "text"
+    }
   ],
   "identifier" : "doc:\/\/Additive\/documentation\/Additive",
   "kind" : "symbol",
@@ -328,6 +426,20 @@
   "title" : "Voidcodable",
   "type" : "topic",
   "url" : "\/documentation\/additive\/voidcodable"
+},
+"icon.png": {
+  "alt" : "icon",
+  "identifier" : "icon.png",
+  "type" : "image",
+  "variants" : [
+    {
+      "traits" : [
+        "1x",
+        "light"
+      ],
+      "url" : "\/images\/icon.png"
+    }
+  ]
 }
 }
 }

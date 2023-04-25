@@ -13,7 +13,6 @@ export DOCC_JSON_PRETTYPRINT="YES"
 rm -rf $DOCC_DATA
 
 xcodebuild \
--project $TARGET_NAME.xcodeproj \
 -derivedDataPath $DOCC_DATA \
 -scheme $TARGET_NAME \
 -destination 'platform=iOS Simulator,name=iPhone 14' \
@@ -37,6 +36,9 @@ for ARCHIVE in $DOCC_ARCHIVE/*.doccarchive; do
     --hosting-base-path $TARGET_NAME/$ARCHIVE_NAME \
     --output-path $DOCC_OUTPUT_FOLDER/$ARCHIVE_NAME
 done
+
+cp images/icon.png $DOCC_OUTPUT_FOLDER/$TARGET_NAME/favicon.ico
+cp images/icon.svg $DOCC_OUTPUT_FOLDER/$TARGET_NAME/favicon.svg
 
 ### Save the current commit we've just built documentation from in a variable
 CURRENT_COMMIT_HASH=$(git rev-parse --short HEAD)

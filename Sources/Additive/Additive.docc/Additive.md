@@ -1,8 +1,12 @@
 # ``Additive``
 
-With Additive SDK you are able to use some repetitive functions as an extension.
+@Metadata {
+   @PageImage(purpose: icon, source: "icon.png", alt: "App icon.")
+   @Available(iOS, introduced: "10.0")
+   @Available(macOS, introduced: "12")    
+}
 
-![icon](icon.png)
+With Additive SDK you are able to use some repetitive functions as an extension.
 
 ## Overview
 - [x] String extensions to facilitate coding and decoding also md5 and localized string.

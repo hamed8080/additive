@@ -1,9 +1,9 @@
 # Addtitive
 [![codecov](https://codecov.io/gh/hamed8080/additive/branch/main/graph/badge.svg?token=R3J5LFUX1N)](https://codecov.io/gh/hamed8080/additive)
 [![tag](https://img.shields.io/github/v/tag/hamed8080/additive)]()
-### A set of extensions to ease using of repetitive useful methods and variables.
-<img src="https://github.com/hamed8080/additive/raw/main/images/icon.png"  width="146" height="146">
-<br />
+A set of extensions to ease using of repetitive useful methods and variables.
+
+<img src="https://github.com/hamed8080/additive/raw/main/images/icon.png"  width="164" height="164">
 
 ## Features
 
@@ -32,8 +32,8 @@ pod 'Additive', :git => 'http://pubgi.fanapsoft.ir/chat/ios/additive.git', :tag 
 ```
 <br/>
 
-## [Documentation](https://hamed8080.gitlab.io/additive/documentation/additive/)
-For more information about how to use Additive visit [Documentation](https://hamed8080.gitlab.io/additive/documentation/additive/) 
+## [Documentation](https://hamed8080.github.io/additive/additive/documentation/additive/)
+For more information about how to use Additive visit [Documentation](https://hamed8080.github.io/additive/additive/documentation/additive/) 
 <br/>
 <br/>
 

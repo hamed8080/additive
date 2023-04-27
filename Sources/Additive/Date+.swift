@@ -30,7 +30,7 @@ public extension Date {
         date1.compare(self) == compare(date2)
     }
 
-    @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)  var timeAgoSinceDateCondense: String? {
+    @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *) var timeAgoSinceDateCondense: String? {
         var formatter: Date.FormatStyle.FormatOutput
         if Calendar.current.isDateInToday(self) {
             formatter = formatted(.dateTime.hour().minute())

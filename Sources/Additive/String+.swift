@@ -21,7 +21,7 @@ public extension String {
         }
     }
 
-    @available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, *)  internal var md5NewVersion: String {
+    @available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, *) internal var md5NewVersion: String {
         let digest = Insecure.MD5.hash(data: data(using: .utf8) ?? Data())
         return digest.map { String(format: "%02hhx", $0) }.joined()
     }

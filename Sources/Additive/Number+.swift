@@ -31,6 +31,15 @@ public extension Numeric {
             return nil
         }
     }
+
+    var timerString: String? {
+        guard let seconds = self as? NSNumber else { return nil }
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = Int(truncating: seconds) > 60 * 60 ? [.hour, .minute, .second] : [.minute, .second]
+        formatter.unitsStyle = .positional
+        formatter.zeroFormattingBehavior = .pad
+        return formatter.string(from: TimeInterval(Int(truncating: seconds)))
+    }
 }
 
 public extension UInt {

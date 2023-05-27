@@ -23,7 +23,7 @@ public extension URL {
         return (scaledImage, properties as? [String: Any])
     }
 
-    var fileNameWirhExtension: String? {
+    var fileNameWithExtension: String? {
         if fileName.isEmpty || fileExtension.isEmpty { return nil }
         return "\(fileName).\(fileExtension)"
     }

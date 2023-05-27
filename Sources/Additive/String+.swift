@@ -108,3 +108,46 @@ public extension String? {
         self == nil || self?.isEmpty == true
     }
 }
+
+@propertyWrapper
+public struct AllCaps {
+    public var wrappedValue: String {
+        didSet {
+            wrappedValue = wrappedValue.uppercased()
+        }
+    }
+
+    public init(wrappedValue: String) {
+        self.wrappedValue = wrappedValue
+    }
+}
+
+@propertyWrapper
+public struct CaseInsensitive {
+    public var wrappedValue: String {
+        didSet {
+            wrappedValue = wrappedValue.lowercased()
+        }
+    }
+
+    public init(wrappedValue: String) {
+        self.wrappedValue = wrappedValue
+    }
+}
+
+@propertyWrapper
+public struct Trimmed {
+    private var text: String
+    public var wrappedValue: String {
+        get {
+            text.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+        set {
+            text = newValue
+        }
+    }
+
+    public init(wrappedValue: String) {
+        text = wrappedValue
+    }
+}

@@ -47,3 +47,23 @@ public extension UInt {
         Date(timeIntervalSince1970: TimeInterval(self) / 1000)
     }
 }
+
+@propertyWrapper
+struct Constraint<Value: Comparable> {
+    private var value: Value
+    private var range: ClosedRange<Value>
+
+    public var wrappedValue: Value {
+        get {
+            max(min(value, range.upperBound), range.lowerBound)
+        }
+        set {
+            value = newValue
+        }
+    }
+
+    public init(wrappedValue: Value, _ range: ClosedRange<Value>) {
+        value = wrappedValue
+        self.range = range
+    }
+}

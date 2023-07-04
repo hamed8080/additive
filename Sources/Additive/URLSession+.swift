@@ -14,7 +14,7 @@ public protocol URLSessionProtocol {
     func dataTask(_ request: URLRequest, completionHandler: @escaping CompletionType) -> URLSessionDataTaskProtocol
     func dataTask(_ request: URLRequest) -> URLSessionDataTaskProtocol
     func dataTask(_ url: URL) -> URLSessionDataTaskProtocol
-    func uploadTask(_ request: URLRequest, _ body: Data, _ completion: @escaping ((Data?, URLResponse?, Error?) -> Void)) -> URLSessionDataTaskProtocol
+    func uploadTask(_ request: URLRequest, _ completion: @escaping ((Data?, URLResponse?, Error?) -> Void)) -> URLSessionDataTaskProtocol
 }
 
 extension URLSession: URLSessionProtocol {
@@ -30,7 +30,7 @@ extension URLSession: URLSessionProtocol {
         dataTask(with: url)
     }
 
-    public func uploadTask(_ request: URLRequest, _: Data, _ completion: @escaping ((Data?, URLResponse?, Error?) -> Void)) -> URLSessionDataTaskProtocol {
+    public func uploadTask(_ request: URLRequest, _ completion: @escaping ((Data?, URLResponse?, Error?) -> Void)) -> URLSessionDataTaskProtocol {
         dataTask(with: request, completionHandler: completion)
     }
 }

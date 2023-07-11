@@ -82,7 +82,7 @@ public extension String {
             languageRecognizer.processString(self)
             guard let code = languageRecognizer.dominantLanguage?.rawValue else { return true }
             languageRecognizer.reset()
-            return code == "en"
+            return code != "fa" && code != "ar"
         } else {
             return true
         }

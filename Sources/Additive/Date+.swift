@@ -61,4 +61,17 @@ public extension Date {
         formatter.unitsStyle = .positional
         return formatter.string(from: interval)
     }
+
+    @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)  var yearCondence: String? {
+        var formatter: Date.FormatStyle.FormatOutput
+        let sectionYear = Calendar.current.component(.year, from: self)
+        let thisYear = Calendar.current.component(.year, from: .now)
+        let isThisYear = thisYear == sectionYear
+        if isThisYear {
+            formatter = formatted(.dateTime.month(.abbreviated).day(.twoDigits))
+        } else {
+            formatter = formatted(.dateTime.year(.twoDigits).month(.abbreviated).day(.twoDigits))
+        }
+        return formatter.string?.replacingOccurrences(of: "\"", with: "")
+    }
 }

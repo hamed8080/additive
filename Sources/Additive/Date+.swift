@@ -31,7 +31,7 @@ public extension Date {
     }
 
     @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *) var timeAgoSinceDateCondense: String? {
-        var formatter: Date.FormatStyle.FormatOutput
+        let formatter: Date.FormatStyle.FormatOutput
         if Calendar.current.isDateInToday(self) {
             formatter = formatted(.dateTime.hour().minute())
         } else if Calendar.current.isDate(self, equalTo: .now, toGranularity: .weekOfMonth) {
@@ -41,7 +41,10 @@ public extension Date {
         } else {
             formatter = formatted(.dateTime.year(.twoDigits).month(.abbreviated).day(.twoDigits))
         }
-        return formatter.string?.replacingOccurrences(of: "\"", with: "")
+        let string = formatter.string
+        return autoreleasepool {
+            return string?.replacingOccurrences(of: "\"", with: "")
+        }
     }
 
     var millisecondsSince1970: Int64 {
@@ -59,11 +62,13 @@ public extension Date {
         formatter.allowedUnits = [.hour, .minute, .second]
         formatter.zeroFormattingBehavior = .pad
         formatter.unitsStyle = .positional
-        return formatter.string(from: interval)
+        return autoreleasepool {
+            return formatter.string(from: interval)
+        }
     }
 
-    @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)  var yearCondence: String? {
-        var formatter: Date.FormatStyle.FormatOutput
+    @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *) var yearCondence: String? {
+        let formatter: Date.FormatStyle.FormatOutput
         let sectionYear = Calendar.current.component(.year, from: self)
         let thisYear = Calendar.current.component(.year, from: .now)
         let isThisYear = thisYear == sectionYear
@@ -72,6 +77,9 @@ public extension Date {
         } else {
             formatter = formatted(.dateTime.year(.twoDigits).month(.abbreviated).day(.twoDigits))
         }
-        return formatter.string?.replacingOccurrences(of: "\"", with: "")
+        let string = formatter.string
+        return autoreleasepool {
+            return string?.replacingOccurrences(of: "\"", with: "")
+        }
     }
 }

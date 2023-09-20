@@ -102,5 +102,15 @@ public extension URL {
                   let mimetype = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassMIMEType)?.takeRetainedValue() else { return nil }
             return mimetype as String
         }
+
+        var isImageMimetype: Bool {
+            let imageTypes = [
+                "image/jpeg",
+                "image/gif",
+                "image/tiff",
+                "image/png"
+            ]
+            return imageTypes.contains(mimeType)
+        }
     }
 #endif

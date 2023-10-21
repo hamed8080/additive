@@ -23,7 +23,7 @@ public extension Numeric {
             let unit = Double.unit[exp - 1]
             let number = value / pow(1024, Double(exp))
             if #available(iOS 15.0, *) {
-                return "\(number.formatted(.number.precision(.fractionLength(1)).locale(.init(identifier: "en_us")))) \(unit)"
+                return "\(number.formatted(.number.precision(.fractionLength(1)))) \(unit)"
             } else {
                 return "\(String(format: "%.1f", number)) \(unit)"
             }

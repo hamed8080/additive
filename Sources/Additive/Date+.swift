@@ -41,10 +41,7 @@ public extension Date {
         } else {
             formatter = formatted(.dateTime.year(.twoDigits).month(.abbreviated).day(.twoDigits))
         }
-        let string = formatter.string
-        return autoreleasepool {
-            return string?.replacingOccurrences(of: "\"", with: "")
-        }
+        return formatter
     }
 
     var millisecondsSince1970: Int64 {

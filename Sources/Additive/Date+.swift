@@ -7,8 +7,9 @@
 import Foundation
 
 public extension Date {
+    static var formatter = DateFormatter()
     func getTime(localIdentifire: String = "en_US") -> String {
-        let formatter = DateFormatter()
+        let formatter = Date.formatter
         formatter.dateStyle = .none
         formatter.timeStyle = .short
         formatter.locale = Locale(identifier: localIdentifire)
@@ -30,18 +31,24 @@ public extension Date {
         date1.compare(self) == compare(date2)
     }
 
-    @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *) var timeAgoSinceDateCondense: String? {
-        let formatter: Date.FormatStyle.FormatOutput
+    /// EEEE Name od the day = Monday
+    /// d: The number of the day in a weak, and we use single 'd' instead of double 'dd' because we don't want zero like 2023/09/02 we want 2023/9/2.
+    /// M: The number of the month, and we use single 'M' instead of double 'MM' because we don't want zero like 2023/09/02 we want 2023/9/2.
+    /// H: The number of the hour, and we use single 'H' instead of double 'HH' because we don't want zero like 2023/09/02 09:02 we want 9:2.
+    /// m: The number of the minute, and we use single 'm' instead of double 'mm' because we don't want zero like 2023/09/02 09:02 we want 9:2.
+    /// MMM: Name of the month = November
+    @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *) func timeAgoSinceDateCondense(local: Locale = .current) -> String? {
+        Date.formatter.locale = local
         if Calendar.current.isDateInToday(self) {
-            formatter = formatted(.dateTime.hour().minute())
+            Date.formatter.dateFormat = "H:m"
         } else if Calendar.current.isDate(self, equalTo: .now, toGranularity: .weekOfMonth) {
-            formatter = formatted(.dateTime.weekday().hour(.twoDigits(amPM: .omitted)).minute())
+            Date.formatter.dateFormat = "EEEE H:m"
         } else if Calendar.current.isDate(self, equalTo: .now, toGranularity: .year) {
-            formatter = formatted(.dateTime.month().day().hour(.twoDigits(amPM: .omitted)).minute(.twoDigits))
+            Date.formatter.dateFormat = "M-d H:m"
         } else {
-            formatter = formatted(.dateTime.year(.twoDigits).month(.abbreviated).day(.twoDigits))
+            Date.formatter.dateFormat = "yyyy-M-d"
         }
-        return formatter
+        return Date.formatter.string(from: self)
     }
 
     var millisecondsSince1970: Int64 {
@@ -64,19 +71,26 @@ public extension Date {
         }
     }
 
-    @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *) var yearCondence: String? {
-        let formatter: Date.FormatStyle.FormatOutput
+    /// EEEE Name od the day = Monday
+    /// d: The number of the day in a weak, and we use single 'd' instead of double 'dd' because we don't want zero like 2023/09/02 we want 2023/9/2.
+    /// M: The number of the month, and we use single 'M' instead of double 'MM' because we don't want zero like 2023/09/02 we want 2023/9/2.
+    /// MMM: Name of the month = November
+    @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *) func yearCondence(local: Locale = .current) -> String? {
+        Date.formatter.locale = local
+
         let sectionYear = Calendar.current.component(.year, from: self)
         let thisYear = Calendar.current.component(.year, from: .now)
         let isThisYear = thisYear == sectionYear
-        if isThisYear {
-            formatter = formatted(.dateTime.month(.abbreviated).day(.twoDigits))
+        if Calendar.current.isDate(self, equalTo: .now, toGranularity: .weekOfMonth) {
+            Date.formatter.dateFormat = "EEEE"
+        } else if isThisYear {
+            Date.formatter.dateFormat = "EEEE d MMM"
         } else {
-            formatter = formatted(.dateTime.year(.twoDigits).month(.abbreviated).day(.twoDigits))
+            Date.formatter.dateFormat = "yyyy-M-d"
         }
-        let string = formatter.string
+        let string = Date.formatter.string(from: self)
         return autoreleasepool {
-            return string?.replacingOccurrences(of: "\"", with: "")
+            return string.replacingOccurrences(of: "\"", with: "")
         }
     }
 }

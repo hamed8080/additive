@@ -11,21 +11,37 @@ extension Int: Arritmatic {}
 extension UInt: Arritmatic {}
 extension Float: Arritmatic {}
 extension Double: Arritmatic {
-    static let unit: [String] = { ["KB", "MB", "GB", "TB", "PB", "EB"] }()
+    static let unit: [String] = { ["General.KB", "General.MB", "General.GB"] }()
 }
 
+private var nf = NumberFormatter()
+
 public extension Numeric {
-    var toSizeString: String? {
+    func toSizeString(locale: Locale = .current) -> String? {
         if let number = self as? NSNumber {
             let value = Double(truncating: number)
-            if value < 1000 { return "\(value) B" }
+            if value < 1000 {
+                let locaizedByte: String
+                if #available(iOS 15, *) {
+                    locaizedByte = String(localized: .init("General.Byte"))
+                } else {
+                    locaizedByte = "General.Byte".localized(bundle: .main)
+                }
+                return "\(value) \(locaizedByte)"
+            }
             let exp = Int(log2(value) / log2(1024.0))
-            let unit = Double.unit[exp - 1]
+            let unit: String
+            if #available(iOS 15, *) {
+                unit = String(localized: .init(Double.unit[exp - 1]))
+            } else {
+                unit = Double.unit[exp - 1].localized(bundle: .main)
+            }
             let number = value / pow(1024, Double(exp))
             if #available(iOS 15.0, *) {
-                return "\(number.formatted(.number.precision(.fractionLength(1)))) \(unit)"
+                return "\(number.formatted(.number.precision(.fractionLength(1)).locale(locale))) \(unit)"
             } else {
-                return "\(String(format: "%.1f", number)) \(unit)"
+                let localizedNumber = number.localNumber(locale: locale) ?? ""
+                return "\(String(format: "%.1f", localizedNumber)) \(unit)"
             }
         } else {
             return nil
@@ -39,6 +55,12 @@ public extension Numeric {
         formatter.unitsStyle = .positional
         formatter.zeroFormattingBehavior = .pad
         return formatter.string(from: TimeInterval(Int(truncating: seconds)))
+    }
+
+    func localNumber(locale: Locale = .current) -> String? {
+        guard let nsNumber = self as? NSNumber else { return nil }
+        nf.locale = locale
+        return nf.string(from: nsNumber)
     }
 }
 

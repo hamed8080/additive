@@ -15,6 +15,7 @@ extension Double: Arritmatic {
 }
 
 private var nf = NumberFormatter()
+let dateFormatterComp = DateComponentsFormatter()
 
 public extension Numeric {
     func toSizeString(locale: Locale = .current) -> String? {
@@ -48,13 +49,13 @@ public extension Numeric {
         }
     }
 
-    var timerString: String? {
+    func timerString(locale: Locale = .current) -> String? {
         guard let seconds = self as? NSNumber else { return nil }
-        let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = Int(truncating: seconds) > 60 * 60 ? [.hour, .minute, .second] : [.minute, .second]
-        formatter.unitsStyle = .positional
-        formatter.zeroFormattingBehavior = .pad
-        return formatter.string(from: TimeInterval(Int(truncating: seconds)))
+        dateFormatterComp.calendar?.locale = locale
+        dateFormatterComp.allowedUnits = Int(truncating: seconds) > 60 * 60 ? [.hour, .minute, .second] : [.minute, .second]
+        dateFormatterComp.unitsStyle = .positional
+        dateFormatterComp.zeroFormattingBehavior = .pad
+        return dateFormatterComp.string(from: TimeInterval(Int(truncating: seconds)))
     }
 
     func localNumber(locale: Locale = .current) -> String? {

@@ -95,6 +95,15 @@ public extension String {
     mutating func capitalizeFirstLetter() {
         self = capitalizingFirstLetter()
     }
+
+    func replaceRTLNumbers() -> String {
+        let numbers = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"]
+        var string = self
+        for (index, number) in numbers.enumerated() {
+           string = string.replacingOccurrences(of: number, with: String(index))
+        }
+        return string
+    }
 }
 
 public extension Optional where Wrapped == any Collection {

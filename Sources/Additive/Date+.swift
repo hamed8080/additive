@@ -40,13 +40,33 @@ public extension Date {
     @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *) func timeAgoSinceDateCondense(local: Locale = .current) -> String? {
         Date.formatter.locale = local
         if Calendar.current.isDateInToday(self) {
-            Date.formatter.dateFormat = "H:m"
+            Date.formatter.dateFormat = "HH:mm"
         } else if Calendar.current.isDate(self, equalTo: .now, toGranularity: .weekOfMonth) {
-            Date.formatter.dateFormat = "EEEE H:m"
+            Date.formatter.dateFormat = "EEEE HH:mm"
         } else if Calendar.current.isDate(self, equalTo: .now, toGranularity: .year) {
-            Date.formatter.dateFormat = "M-d H:m"
+            Date.formatter.dateFormat = "MM-dd HH:mm"
         } else {
-            Date.formatter.dateFormat = "yyyy-M-d"
+            Date.formatter.dateFormat = "yyyy-MM-dd"
+        }
+        return Date.formatter.string(from: self)
+    }
+
+    /// EEEE Name od the day = Monday
+    /// d: The number of the day in a weak, and we use single 'd' instead of double 'dd' because we don't want zero like 2023/09/02 we want 2023/9/2.
+    /// M: The number of the month, and we use single 'M' instead of double 'MM' because we don't want zero like 2023/09/02 we want 2023/9/2.
+    /// H: The number of the hour, and we use single 'H' instead of double 'HH' because we don't want zero like 2023/09/02 09:02 we want 9:2.
+    /// m: The number of the minute, and we use single 'm' instead of double 'mm' because we don't want zero like 2023/09/02 09:02 we want 9:2.
+    /// MMM: Name of the month = November
+    @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *) func timeOrDate(local: Locale = .current) -> String? {
+        Date.formatter.locale = local
+        if Calendar.current.isDateInToday(self) {
+            Date.formatter.dateFormat = "HH:mm"
+        } else if Calendar.current.isDate(self, equalTo: .now, toGranularity: .weekOfMonth) {
+            Date.formatter.dateFormat = "EEEE"
+        } else if Calendar.current.isDate(self, equalTo: .now, toGranularity: .year) {
+            Date.formatter.dateFormat = "MM/dd"
+        } else {
+            Date.formatter.dateFormat = "yyyy/MM/dd"
         }
         return Date.formatter.string(from: self)
     }

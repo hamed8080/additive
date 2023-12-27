@@ -76,6 +76,15 @@ public extension URL {
             self = newURL
         }
     }
+
+    var isMusicMimetype: Bool {
+        let imageTypes = [
+            "audio/mpeg",
+            "audio/aac",
+            "audio/ogg"
+        ]
+        return imageTypes.contains(mimeType)
+    }
 }
 
 #if canImport(MobileCoreServices)

@@ -8,15 +8,9 @@ import Foundation
 
 open class SourceTimer {
     private var timer: DispatchSourceTimer?
-    private let duration: TimeInterval
-    private let completion: () -> Void
+    public init(){}
 
-    public init(duration: TimeInterval, completion: @escaping () -> Void) {
-        self.duration = duration
-        self.completion = completion
-    }
-
-    public func start() {
+    public func start(duration: TimeInterval, completion: @escaping () -> Void) {
         // Create a new DispatchSourceTimer
         timer = DispatchSource.makeTimerSource()
 
@@ -26,7 +20,7 @@ open class SourceTimer {
         // Set the timer event handler
         timer?.setEventHandler {
             if self.timer?.isCancelled == false {
-                self.completion()
+                completion()
                 self.timer?.cancel()
             }
         }

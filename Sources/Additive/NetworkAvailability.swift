@@ -7,8 +7,12 @@
 import Foundation
 import Network
 
+public protocol NetworkAvailabilityProtocol {
+    var onNetworkChange: ((Bool) -> Void)? { get set }
+}
+
 @available(macOS 10.14, iOS 12.0, watchOS 5.0, tvOS 12.0, *)
-open class NetworkAvailability {
+open class NativeNetworkAvailability: NetworkAvailabilityProtocol {
     private var lastStatus: NWPath.Status?
     public var onNetworkChange: ((Bool) -> Void)?
     private let path = NWPathMonitor()
@@ -25,5 +29,21 @@ open class NetworkAvailability {
             lastStatus = path.status
         }
         path.start(queue: queue as! DispatchQueue)
+    }
+}
+
+open class CompatibleNetworkAvailability: NetworkAvailabilityProtocol {
+    public var onNetworkChange: ((Bool) -> Void)?
+
+    public init() {}
+}
+
+public final class NetworkAvailabilityFactory {
+    public class func create() -> NetworkAvailabilityProtocol {
+        if #available(macOS 10.14, iOS 12.0, watchOS 5.0, tvOS 12.0, *) {
+            return NativeNetworkAvailability()
+        } else {
+            return CompatibleNetworkAvailability()
+        }
     }
 }

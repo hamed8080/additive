@@ -21,7 +21,7 @@ public extension Numeric {
     func toSizeString(locale: Locale = .current) -> String? {
         if let number = self as? NSNumber {
             let value = Double(truncating: number)
-            if value < 1000 {
+            if value < 1024 {
                 let locaizedByte: String
                 if #available(iOS 15, *) {
                     locaizedByte = String(localized: .init("General.Byte"))
@@ -31,11 +31,12 @@ public extension Numeric {
                 return "\(value) \(locaizedByte)"
             }
             let exp = Int(log2(value) / log2(1024.0))
+            let unitIndex = max(0, exp - 1)
             let unit: String
             if #available(iOS 15, *) {
-                unit = String(localized: .init(Double.unit[exp - 1]))
+                unit = String(localized: .init(Double.unit[unitIndex]))
             } else {
-                unit = Double.unit[exp - 1].localized(bundle: .main)
+                unit = Double.unit[unitIndex].localized(bundle: .main)
             }
             let number = value / pow(1024, Double(exp))
             if #available(iOS 15.0, *) {

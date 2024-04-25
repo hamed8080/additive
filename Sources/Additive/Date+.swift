@@ -8,6 +8,8 @@ import Foundation
 
 public extension Date {
     static var formatter = DateFormatter()
+    static let pCal = Calendar(identifier: .persian)
+
     func getTime(localIdentifire: String = "en_US") -> String {
         let formatter = Date.formatter
         formatter.dateStyle = .none
@@ -57,18 +59,23 @@ public extension Date {
     /// H: The number of the hour, and we use single 'H' instead of double 'HH' because we don't want zero like 2023/09/02 09:02 we want 9:2.
     /// m: The number of the minute, and we use single 'm' instead of double 'mm' because we don't want zero like 2023/09/02 09:02 we want 9:2.
     /// MMM: Name of the month = November
+    /// PS: Do not use shared dateFormatter in this calss it will lead to problems in displaying the right date format.
+    private static let dtf = DateFormatter()
     @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *) func timeOrDate(local: Locale = .current) -> String? {
-        Date.formatter.locale = local
-        if Calendar.current.isDateInToday(self) {
-            Date.formatter.dateFormat = "HH:mm"
-        } else if Calendar.current.isDate(self, equalTo: .now, toGranularity: .weekOfMonth) {
-            Date.formatter.dateFormat = "EEEE"
-        } else if Calendar.current.isDate(self, equalTo: .now, toGranularity: .year) {
-            Date.formatter.dateFormat = "MM/dd"
+        Date.dtf.locale = local
+        let isPersian = local.identifier == "fa_IR"
+        var cal = isPersian ? Date.pCal : Calendar.current
+        cal.locale = local
+        if cal.isDateInToday(self) {
+            Date.dtf.dateFormat = "H:m"
+        } else if cal.isDate(self, equalTo: .now, toGranularity: .weekOfMonth) {
+            Date.dtf.dateFormat = "EEEE"
+        } else if cal.isDate(self, equalTo: .now, toGranularity: .year) {
+            Date.dtf.dateFormat = "yyyy-M-d"
         } else {
-            Date.formatter.dateFormat = "yyyy/MM/dd"
+            Date.dtf.dateFormat = "yyyy-M-d"
         }
-        return Date.formatter.string(from: self)
+        return Date.dtf.string(from: self)
     }
 
     var millisecondsSince1970: Int64 {

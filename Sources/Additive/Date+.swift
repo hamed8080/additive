@@ -10,22 +10,26 @@ public extension Date {
     static var formatter = DateFormatter()
     static let pCal = Calendar(identifier: .persian)
 
-    func getTime(localIdentifire: String = "en_US") -> String {
+    func getTime(localIdentifire: String = "en_US", withAbbrevation: String? = nil) -> String {
         let formatter = Date.formatter
         formatter.dateStyle = .none
         formatter.timeStyle = .short
         formatter.locale = Locale(identifier: localIdentifire)
-        formatter.timeZone = .init(abbreviation: "GMT")
+        if let withAbbrevation = withAbbrevation {
+            formatter.timeZone = .init(abbreviation: withAbbrevation)
+        }
         return formatter.string(from: self)
     }
 
-    func getDate(localIdentifire: String = "en_US") -> String {
+    func getDate(localIdentifire: String = "en_US", withAbbrevation: String? = nil) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .none
         formatter.timeStyle = .short
         formatter.locale = Locale(identifier: localIdentifire)
         formatter.dateFormat = "yyyy-MM-dd"
-        formatter.timeZone = .init(abbreviation: "GMT")
+        if let withAbbrevation = withAbbrevation {
+            formatter.timeZone = .init(abbreviation: withAbbrevation)
+        }
         return formatter.string(from: self)
     }
 

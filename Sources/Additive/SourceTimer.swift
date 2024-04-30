@@ -9,8 +9,15 @@ import Foundation
 open class SourceTimer {
     private var timer: DispatchSourceTimer?
     public init(){}
+    private let queue = DispatchQueue(label: "SourceTimerSerilaQueue")
 
     public func start(duration: TimeInterval, completion: @escaping () -> Void) {
+        queue.sync {
+            startTimer(duration: duration, completion: completion)
+        }
+    }
+
+    private func startTimer(duration: TimeInterval, completion: @escaping () -> Void) {
         // Create a new DispatchSourceTimer
         timer = DispatchSource.makeTimerSource()
 
@@ -30,8 +37,10 @@ open class SourceTimer {
     }
 
     public func cancel() {
-        // Cancel and release the timer
-        timer?.cancel()
-        timer = nil
+        queue.sync {
+            // Cancel and release the timer
+            timer?.cancel()
+            timer = nil
+        }
     }
 }

@@ -25,15 +25,21 @@ open class SourceTimer {
         timer?.schedule(deadline: .now() + duration)
 
         // Set the timer event handler
-        timer?.setEventHandler {
-            if self.timer?.isCancelled == false {
-                completion()
-                self.timer?.cancel()
-            }
+        timer?.setEventHandler { [weak self] in
+            self?.onEventHandler(completion: completion)
         }
 
         // Start the timer
         timer?.resume()
+    }
+
+    private func onEventHandler(completion: @escaping () -> Void) {
+        queue.sync {
+            if timer?.isCancelled == false {
+                completion()
+                timer?.cancel()
+            }
+        }
     }
 
     public func cancel() {

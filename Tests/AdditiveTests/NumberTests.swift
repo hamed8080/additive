@@ -8,9 +8,13 @@ final class NumberTests: XCTestCase {
         // Given
         let value = 1024
         // When
-        let result = value.toSizeString
+        let result = value.toSizeString()
         // Then
-        XCTAssertEqual(result, "1.0 KB", "Expected the string to be equal to '1.0 KB' but it's \(String(describing: result))")
+        if Locale.current.identifier.lowercased().contains("de") {
+            XCTAssertEqual(result, "1,0 General.KB", "Expected the string to be equal to '1,0 General.KB' but it's \(String(describing: result))")
+        } else {
+            XCTAssertEqual(result, "1.0 General.KB", "Expected the string to be equal to '1.0 General.KB' but it's \(String(describing: result))")
+        }
     }
 
     func testDate() {

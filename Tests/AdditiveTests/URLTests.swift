@@ -86,7 +86,7 @@ final class URLTests: XCTestCase {
         // Given
         let url = URL(string: filePath)!
         // Then
-        let result = url.fileNameWirhExtension
+        let result = url.fileNameWithExtension
         let expectationResult = "picture.jpg"
         XCTAssertEqual(result, expectationResult, "Expected the fileNameWithExtension string to be equal to '\(expectationResult)' but it's \(String(describing: result))")
     }
@@ -95,7 +95,7 @@ final class URLTests: XCTestCase {
         // Given
         let url = URL(string: urlString)!
         // When
-        let result = url.fileNameWirhExtension
+        let result = url.fileNameWithExtension
         // Then
         XCTAssertNil(result, "Expected the fileNameWirhExtension to be nil but it's \(String(describing: result))")
     }

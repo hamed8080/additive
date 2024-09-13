@@ -77,7 +77,7 @@ public extension String {
     #endif
 
     var isEnglishString: Bool {
-        if #available(iOS 12.0, *) {
+        if #available(iOS 12.0, macOS 10.14, *) {
             let languageRecognizer = NLLanguageRecognizer()
             languageRecognizer.processString(self)
             guard let code = languageRecognizer.dominantLanguage?.rawValue else { return true }

@@ -87,39 +87,37 @@ public extension URL {
     }
 }
 
-#if canImport(MobileCoreServices)
-    public extension URL {
-        var mimeType: String {
-            if let mimeType = ios15MimeType {
-                return mimeType
-            } else if let mimeType = ios14MimeType {
-                return mimeType
-            }
-            return "application/octet-stream"
+public extension URL {
+    var mimeType: String {
+        if let mimeType = ios15MimeType {
+            return mimeType
+        } else if let mimeType = ios14MimeType {
+            return mimeType
         }
-
-        var ios15MimeType: String? {
-            if #available(iOS 15.0, *), let mimetype = UTType(filenameExtension: pathExtension)?.preferredMIMEType {
-                return mimetype as String
-            } else {
-                return nil
-            }
-        }
-
-        var ios14MimeType: String? {
-            guard let uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, pathExtension as NSString, nil)?.takeRetainedValue(),
-                  let mimetype = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassMIMEType)?.takeRetainedValue() else { return nil }
+        return "application/octet-stream"
+    }
+    
+    var ios15MimeType: String? {
+        if #available(macOS 11.0, iOS 14.0, watchOS 7.0, tvOS 14.0, *), let mimetype = UTType(filenameExtension: pathExtension)?.preferredMIMEType {
             return mimetype as String
-        }
-
-        var isImageMimetype: Bool {
-            let imageTypes = [
-                "image/jpeg",
-                "image/gif",
-                "image/tiff",
-                "image/png"
-            ]
-            return imageTypes.contains(mimeType)
+        } else {
+            return nil
         }
     }
-#endif
+    
+    var ios14MimeType: String? {
+        guard let uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, pathExtension as NSString, nil)?.takeRetainedValue(),
+              let mimetype = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassMIMEType)?.takeRetainedValue() else { return nil }
+        return mimetype as String
+    }
+    
+    var isImageMimetype: Bool {
+        let imageTypes = [
+            "image/jpeg",
+            "image/gif",
+            "image/tiff",
+            "image/png"
+        ]
+        return imageTypes.contains(mimeType)
+    }
+}

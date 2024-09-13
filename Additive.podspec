@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Additive"
-  s.version      = "1.2.3"
+  s.version      = "1.2.4"
   s.summary      = "Additive"
   s.description  = "Additive is a set of extensions over some primitive swift classes."
   s.homepage     = "https://pubgi.sandpod.ir/chat/ios/additive"

@@ -23,7 +23,7 @@ public extension Numeric {
             let value = Double(truncating: number)
             if value < 1024 {
                 let locaizedByte: String
-                if #available(iOS 15, *) {
+                if #available(macOS 12, iOS 15, tvOS 15, watchOS 8, *) {
                     locaizedByte = String(localized: .init("General.Byte"))
                 } else {
                     locaizedByte = "General.Byte".localized(bundle: .main)
@@ -33,13 +33,13 @@ public extension Numeric {
             let exp = Int(log2(value) / log2(1024.0))
             let unitIndex = max(0, exp - 1)
             let unit: String
-            if #available(iOS 15, *) {
+            if #available(macOS 12, iOS 15, tvOS 15, watchOS 8, *) {
                 unit = String(localized: .init(Double.unit[unitIndex]))
             } else {
                 unit = Double.unit[unitIndex].localized(bundle: .main)
             }
             let number = value / pow(1024, Double(exp))
-            if #available(iOS 15.0, *) {
+            if #available(macOS 12, iOS 15, tvOS 15, watchOS 8, *) {
                 return "\(number.formatted(.number.precision(.fractionLength(1)).locale(locale))) \(unit)"
             } else {
                 let localizedNumber = number.localNumber(locale: locale) ?? ""
